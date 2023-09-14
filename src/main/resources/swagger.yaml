@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API Cadastro de Disciplinas
+  description: Api de cadastro de disciplinas - Arq. Hexagonal
+paths:
+  /disciplines:
+    get:
+      operationId: getDisciplines
+      summary: Consulta disciplinas
+      tags:
+        - Disciplines
+      parameters:
+        - schema:
+            type: string
+            example: 'Matematica'
+          name: title
+          description: 'Titulo'
+          in: query
+          required: false
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DisciplinesDetail'
+    post:
+      operationId: createDiscipline
+      summary: Cria uma nova disciplina
+      tags:
+        - Disciplines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisciplinesInput'
+      responses:
+        '201':
+          description: Disciplina criada!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisciplinesDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /disciplines/{disciplineId}:
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+        name: disciplineId
+        in: path
+        required: true
+    get:
+      operationId: getDisciplineById
+      summary: Busca uma disciplina por ID
+      tags:
+        - Disciplines
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisciplinesDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDiscipline
+      summary: Atualiza uma disciplina
+      tags:
+        - Disciplines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisciplinesInput'
+      responses:
+        '204':
+          description: 'Disciplina atualizada'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisciplinesDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      operationId: removeDiscipline
+      summary: Remove uma disciplina
+      tags:
+        - Disciplines
+      responses:
+        '204':
+          description: 'Disciplina removida'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+tags:
+  - name: Disciplines
+    description: Disciplina
+
+security:
+  - ApiKey: [ ]
+
+servers:
+  - description: 'Ambiente de produção'
+    url: 'https://msalunos.nksolucoes.com'
+  - description: 'Ambiente de local de desenvolvimento'
+    url: 'https://localhost:8090'
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Nk-Solucoes/ms-disciplines/1.0.0
+
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      name: X-Authorization
+      in: header
+      description: 'Token de autenticação'
+  responses:
+    NotFound:
+      description: 'Recurso não encontrado'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    BadRequest:
+      description: 'Requisição invalida'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    InternalServerError:
+      description: 'Erro interno do servidor'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+  schemas:
+    DisciplinesDetail:
+      description: 'Disciplines Detail'
+      type: object
+      required:
+        - id
+        - name
+        - grade
+        - createDate
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 'Matematica'
+        grade:
+          type: integer
+          format: int64
+          example: 10
+        createDate:
+          type: string
+          format: date
+          example: '2022-01-01'
+    DisciplinesInput:
+      description: 'Template for creating or changing discipline'
+      type: object
+      required:
+        - name
+        - grade
+        - createDate
+      properties:
+        name:
+          type: string
+          example: 'Ciencias'
+        grade:
+          type: integer
+          format: int64
+          example: 10
+        createDate:
+          type: string
+          format: date
+          example: '2022-01-01'
+    ErrorMessage:
+      description: 'Representa um modelo de erro na requisicao'
+      type: object
+      required:
+        - status
+        - timestamp
+        - error
+        - message
+        - path
+      properties:
+        status:
+          type: integer
+          format: int64
+          example: 400
+        timestamp:
+          type: string
+          format: date
+          example: '2022-11-01-T18:09:02Z'
+        error:
+          type: string
+          example: 'Dados inálidos'
+        messagem:
+          type: string
+          example: "Um ou mais campos estão inválidos"
+        path:
+          type: string
+          example: '/path'
