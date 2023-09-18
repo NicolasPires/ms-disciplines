@@ -50,10 +50,9 @@ public class DisciplinesUseCase {
 
         if (!Objects.isNull(disciplineData)) {
             return this.disciplinesRepository.updateDiscipline(Discipline.builder()
-                    .id(disciplineData.getId())
+                    .disciplineId(disciplineData.getDisciplineId())
                     .name(discipline.getName())
                     .grade(discipline.getGrade())
-                    .createDate(discipline.getCreateDate())
                     .build());
         } else {
             throw new RuntimeException("Unable to find discipline for update");

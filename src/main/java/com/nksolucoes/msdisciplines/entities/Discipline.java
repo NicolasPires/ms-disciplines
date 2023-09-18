@@ -3,6 +3,7 @@ package com.nksolucoes.msdisciplines.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,8 +16,7 @@ import java.util.Date;
 public class Discipline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long disciplineId;
     private String name;
     private String grade;
-    private Date createDate;
 }

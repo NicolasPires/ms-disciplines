@@ -153,12 +153,11 @@ components:
       description: 'Disciplines Detail'
       type: object
       required:
-        - id
+        - disciplineId
         - name
         - grade
-        - createDate
       properties:
-        id:
+        disciplineId:
           type: integer
           format: int64
           example: 1
@@ -169,17 +168,12 @@ components:
           type: integer
           format: int64
           example: 10
-        createDate:
-          type: string
-          format: date
-          example: '2022-01-01'
     DisciplinesInput:
       description: 'Template for creating or changing discipline'
       type: object
       required:
         - name
         - grade
-        - createDate
       properties:
         name:
           type: string
@@ -188,10 +182,6 @@ components:
           type: integer
           format: int64
           example: 10
-        createDate:
-          type: string
-          format: date
-          example: '2022-01-01'
     ErrorMessage:
       description: 'Representa um modelo de erro na requisicao'
       type: object
