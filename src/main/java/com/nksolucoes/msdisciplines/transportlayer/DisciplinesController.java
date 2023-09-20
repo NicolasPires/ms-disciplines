@@ -1,10 +1,11 @@
-package com.nksolucoes.msdisciplines.transportlayer.mapper;
+package com.nksolucoes.msdisciplines.transportlayer;
 
 import com.nksolucoes.msdisciplines.entities.Discipline;
 import com.nksolucoes.msdisciplines.interactors.DisciplinesUseCase;
 import com.nksolucoes.msdisciplines.transportlayer.documentacao.model.DisciplinesDetail;
 import com.nksolucoes.msdisciplines.transportlayer.documentacao.model.DisciplinesInput;
 import com.nksolucoes.msdisciplines.transportlayer.documentacao.openapi.DisciplinesApi;
+import com.nksolucoes.msdisciplines.transportlayer.mapper.DisciplinesMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
