@@ -15,11 +15,11 @@ import java.util.List;
 
 @RestController
 @Slf4j
-public class DisciplinesController implements DisciplinesApi {
+public class DisciplinesHttp implements DisciplinesApi {
 
     private final DisciplinesUseCase disciplinesUseCase;
 
-    public DisciplinesController(DisciplinesUseCase disciplinesUseCase) {
+    public DisciplinesHttp(DisciplinesUseCase disciplinesUseCase) {
         this.disciplinesUseCase = disciplinesUseCase;
     }
 
